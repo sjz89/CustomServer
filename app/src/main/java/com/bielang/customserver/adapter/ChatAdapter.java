@@ -146,7 +146,7 @@ public class ChatAdapter extends RecyclerView.Adapter implements View.OnClickLis
                 ((GoodsViewHolder) holder).Btn_detail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        mOnItemClickListener.onItemClick(((GoodsViewHolder) holder).itemView,position);
+                        mOnItemClickListener.onItemClick(((GoodsViewHolder) holder).Btn_detail,position);
                     }
                 });
         }

@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.bielang.customserver.activity.CustomerInfoActivity">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_customer_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue_123"
+        android:fitsSystemWindows="true">
+
+        <ImageButton
+            android:id="@+id/customer_info_back"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_gravity="center_vertical"
+            android:background="#00000000"
+            android:contentDescription="@string/empty"
+            android:paddingEnd="16dp"
+            android:paddingStart="2dp"
+            android:src="@drawable/left_arrow" />
+
+        <TextView
+            android:id="@+id/title_customer_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/customer_info"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="normal" />
+
+    </android.support.v7.widget.Toolbar>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="2dp"
+                android:background="@android:color/white"
+                android:elevation="0.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/userID"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    tools:ignore="RelativeOverlap" />
+
+
+                <TextView
+                    android:id="@+id/customerID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/grey_700"
+                    android:textSize="18sp"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="2dp"
+                android:background="@android:color/white"
+                android:elevation="0.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/customer_level"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    tools:ignore="RelativeOverlap" />
+
+
+                <TextView
+                    android:id="@+id/customerLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/grey_700"
+                    android:textSize="18sp"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="2dp"
+                android:background="@android:color/white"
+                android:elevation="0.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/name"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    tools:ignore="RelativeOverlap" />
+
+
+                <TextView
+                    android:id="@+id/customerName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/grey_700"
+                    android:textSize="18sp"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="2dp"
+                android:background="@android:color/white"
+                android:elevation="0.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/userName"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    tools:ignore="RelativeOverlap" />
+
+
+                <TextView
+                    android:id="@+id/customerNicName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/grey_700"
+                    android:textSize="18sp"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="2dp"
+                android:background="@android:color/white"
+                android:elevation="0.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/userSex"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    tools:ignore="RelativeOverlap" />
+
+
+                <TextView
+                    android:id="@+id/customerSex"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/grey_700"
+                    android:textSize="18sp"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="2dp"
+                android:background="@android:color/white"
+                android:elevation="0.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/customer_phone"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    tools:ignore="RelativeOverlap" />
+
+
+                <TextView
+                    android:id="@+id/customerPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/grey_700"
+                    android:textSize="18sp"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="2dp"
+                android:background="@android:color/white"
+                android:elevation="0.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/userEmail"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    tools:ignore="RelativeOverlap" />
+
+
+                <TextView
+                    android:id="@+id/customerMail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/grey_700"
+                    android:textSize="18sp"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/moreInfo"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="2dp"
+                android:background="@android:color/white"
+                android:elevation="0.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/more_info"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    tools:ignore="RelativeOverlap" />
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/customer_info_ip"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="2dp"
+                android:visibility="gone"
+                android:background="@android:color/white"
+                android:elevation="0.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/customer_ipAddr"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    tools:ignore="RelativeOverlap" />
+
+
+                <TextView
+                    android:id="@+id/customerIP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/grey_700"
+                    android:textSize="18sp"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/customer_info_area"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="2dp"
+                android:visibility="gone"
+                android:background="@android:color/white"
+                android:elevation="0.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/customer_area"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    tools:ignore="RelativeOverlap" />
+
+
+                <TextView
+                    android:id="@+id/customerArea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/grey_700"
+                    android:textSize="18sp"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/customer_info_registTime"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginBottom="2dp"
+                android:visibility="gone"
+                android:background="@android:color/white"
+                android:elevation="0.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/customer_registTime"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    tools:ignore="RelativeOverlap" />
+
+
+                <TextView
+                    android:id="@+id/customerRegistTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/grey_700"
+                    android:textSize="18sp"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/customer_info_loginTime"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:visibility="gone"
+                android:layout_marginBottom="2dp"
+                android:background="@android:color/white"
+                android:elevation="0.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/customer_loginTime"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    tools:ignore="RelativeOverlap" />
+
+
+                <TextView
+                    android:id="@+id/customerloginTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/grey_700"
+                    android:textSize="18sp"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/customer_info_lastTime"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:visibility="gone"
+                android:layout_marginBottom="2dp"
+                android:background="@android:color/white"
+                android:elevation="0.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/customer_lastConversationTime"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    tools:ignore="RelativeOverlap" />
+
+
+                <TextView
+                    android:id="@+id/customerlastConversationTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/grey_700"
+                    android:textSize="18sp"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

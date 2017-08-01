@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/get_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="3dp"
+        android:gravity="center"
+        android:textColor="@color/grey_400"
+        android:textIsSelectable="false"
+        android:textSize="12sp"/>
+    <ImageView
+        android:id="@+id/Header_From"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/get_time"
+        android:layout_margin="8dp"
+        android:contentDescription="@string/empty"/>
+
+    <com.bielang.customserver.view.BubbleTextView
+        android:id="@+id/From_Content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="36dp"
+        android:layout_below="@id/get_time"
+        android:padding="8dp"
+        android:layout_toEndOf="@+id/Header_From"
+        android:contentDescription="@string/empty"
+        android:autoLink="all"
+        android:minWidth="32dp"
+        android:minHeight="36dp"
+        android:gravity="start"
+        android:textSize="16sp"
+        app:bubbleDirection="left"
+        app:bubbleArrowHeight="6dp"
+        app:bubbleArrowWidth="8dp"
+        app:bubbleBackGround="@color/grey_200"
+        app:bubbleArrowWhetherCenterVertical="false"/>
+
+</RelativeLayout>

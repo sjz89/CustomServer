@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/goods_send_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="3dp"
+        android:gravity="center"
+        android:textColor="@color/grey_400"
+        android:textIsSelectable="false"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/goods_Header_To"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/goods_send_time"
+        android:layout_margin="8dp"
+        android:contentDescription="@string/empty"
+        android:src="@drawable/pic_sul2" />
+
+    <com.github.library.bubbleview.BubbleLinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/goods_send_time"
+        android:layout_toStartOf="@id/goods_Header_To"
+        android:layout_marginBottom="4dp"
+        android:orientation="horizontal"
+        app:angle="8dp"
+        app:arrowHeight="6dp"
+        app:arrowLocation="right"
+        app:bubbleColor="@color/grey_100">
+
+        <ImageView
+            android:id="@+id/pic"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
+            android:layout_margin="8dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/icon_failure"
+            android:contentDescription="@string/empty" />
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/goods_info"
+                android:textColor="@color/grey_800"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/idNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:textColor="@color/grey_800" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:textColor="@color/grey_800" />
+
+            <LinearLayout
+                android:id="@+id/see_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                tools:ignore="UseCompoundDrawables">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@string/see_detail"
+                    android:textColor="@color/blue"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/empty"
+                    android:src="@drawable/right_arrow" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.github.library.bubbleview.BubbleLinearLayout>
+
+</RelativeLayout>

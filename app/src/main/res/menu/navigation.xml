@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_service"
+        android:icon="@drawable/tab_service"
+        android:title="@string/title_service" />
+
+    <item
+        android:id="@+id/navigation_message"
+        android:icon="@drawable/tab_msg"
+        android:title="@string/title_message" />
+
+    <item
+        android:id="@+id/navigation_work"
+        android:icon="@drawable/tab_work"
+        android:title="@string/title_work"/>
+
+    <item
+        android:id="@+id/navigation_setting"
+        android:icon="@drawable/tab_set"
+        android:title="@string/title_setting" />
+</menu>

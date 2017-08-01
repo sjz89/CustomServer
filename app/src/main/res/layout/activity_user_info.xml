@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.bielang.customserver.activity.UserInfoActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_user_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:background="@color/blue_123">
+        <ImageButton
+            android:id="@+id/user_info_back"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="2dp"
+            android:paddingEnd="16dp"
+            android:background="#00000000"
+            android:contentDescription="@string/empty"
+            android:src="@drawable/left_arrow" />
+
+        <TextView
+            android:id="@+id/title_user_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/userInfo"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="normal" />
+
+        <ImageView
+            android:id="@+id/edit_user_info"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:contentDescription="@string/empty"
+            android:src="@drawable/editor"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/edit_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/button_done"
+            android:text="@string/done"
+            android:textColor="@color/grey_800"
+            android:textSize="14sp"
+            android:visibility="gone"
+            android:paddingTop="4dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:paddingBottom="4dp"/>
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:background="@android:color/white"
+        android:elevation="0.5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_centerVertical="true"
+            android:text="@string/header"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            android:textColor="@android:color/black"
+            tools:ignore="RelativeOverlap" />
+
+        <ImageView
+            android:id="@+id/userHeader"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_marginEnd="12dp"
+            android:padding="8dp"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/empty"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:elevation="0.5dp"
+        android:background="@android:color/white"
+        android:layout_marginBottom="2dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_centerVertical="true"
+            android:text="@string/userID"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            android:textColor="@android:color/black"
+            tools:ignore="RelativeOverlap" />
+
+
+        <TextView
+            android:id="@+id/userID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            android:textColor="@color/grey_700"
+            android:layout_alignParentEnd="true"
+            tools:ignore="RelativeOverlap" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:elevation="0.5dp"
+        android:background="@android:color/white"
+        android:layout_marginBottom="2dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_centerVertical="true"
+            android:text="@string/userType"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            android:textColor="@android:color/black"
+            tools:ignore="RelativeOverlap" />
+
+
+        <TextView
+            android:id="@+id/userType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            android:textColor="@color/grey_700"
+            android:layout_alignParentEnd="true"
+            tools:ignore="RelativeOverlap" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:elevation="0.5dp"
+        android:background="@android:color/white"
+        android:layout_marginBottom="2dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_centerVertical="true"
+            android:text="@string/name"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            android:textColor="@android:color/black"
+            tools:ignore="RelativeOverlap" />
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:gravity="end"
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            android:textColor="@color/grey_700"
+            android:layout_alignParentEnd="true"
+            android:background="#00000000"
+            android:inputType="text"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            tools:ignore="Deprecated,LabelFor,RelativeOverlap" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:elevation="0.5dp"
+        android:background="@android:color/white"
+        android:layout_marginBottom="2dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_centerVertical="true"
+            android:text="@string/userName"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            android:textColor="@android:color/black"
+            tools:ignore="RelativeOverlap" />
+
+        <EditText
+            android:id="@+id/userName"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:gravity="end"
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            android:textColor="@color/grey_700"
+            android:layout_alignParentEnd="true"
+            android:background="#00000000"
+            android:inputType="text"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            tools:ignore="Deprecated,LabelFor,RelativeOverlap" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:elevation="0.5dp"
+        android:background="@android:color/white"
+        android:layout_marginBottom="2dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_centerVertical="true"
+            android:text="@string/userSex"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            android:textColor="@android:color/black"
+            tools:ignore="RelativeOverlap" />
+
+        <TextView
+            android:id="@+id/userSex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            android:textColor="@color/grey_700"
+            android:layout_alignParentEnd="true"
+            tools:ignore="RelativeOverlap" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginBottom="2dp"
+        android:background="@android:color/white"
+        android:elevation="0.5dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:text="@string/phone"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            tools:ignore="RelativeOverlap" />
+
+        <EditText
+            android:id="@+id/userPhone"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:gravity="end"
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            android:textColor="@color/grey_700"
+            android:layout_alignParentEnd="true"
+            android:background="#00000000"
+            android:inputType="phone"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            tools:ignore="Deprecated,LabelFor,RelativeOverlap" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:elevation="0.5dp"
+        android:background="@android:color/white"
+        android:layout_marginBottom="2dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_centerVertical="true"
+            android:text="@string/user_registTime"
+            android:textSize="18sp"
+            android:textStyle="normal"
+            android:textColor="@android:color/black"
+            tools:ignore="RelativeOverlap" />
+
+        <TextView
+            android:id="@+id/userRegist_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_centerVertical="true"
+            android:textSize="18sp"
+            android:textColor="@color/grey_700"
+            android:layout_alignParentEnd="true"
+            tools:ignore="RelativeOverlap" />
+    </RelativeLayout>
+</LinearLayout>

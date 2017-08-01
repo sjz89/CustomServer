@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/textMessageLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey_100"
+        android:orientation="horizontal"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp">
+        <ImageView
+            android:id="@+id/voice_button"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@string/empty"
+            android:src="@drawable/chat_voice"/>
+
+        <ImageView
+            android:id="@+id/work_button"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_gravity="center_vertical"
+            android:visibility="gone"
+            android:contentDescription="@string/empty"
+            android:src="@drawable/chat_more"/>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/InputBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_centerVertical="true"
+                android:paddingStart="8dp"
+                android:paddingEnd="32dp"
+                android:autoLink="all"
+                android:background="@drawable/edit_text_bg"
+                android:inputType="textMultiLine"
+                android:maxHeight="72dip"
+                android:maxLines="4"
+                android:textCursorDrawable="@null"
+                android:textSize="16sp"
+                tools:ignore="LabelFor,RtlHardcoded" />
+
+            <ImageView
+                android:id="@+id/emotion_button"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginEnd="16dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/empty"
+                android:src="@drawable/chat_exp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/BtnSend"
+            style="@style/SmsButton"
+            android:layout_width="50dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/empty"
+            android:gravity="center"
+            android:text="@string/button_send"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_emotion_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <com.bielang.customserver.emotion.NoHorizontalScrollerViewPager
+            android:id="@+id/vp_emotionview_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/bg_horizontal_line_color" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_more_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/order_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="20dp"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/empty"
+                android:src="@drawable/tab_work"
+                android:padding="4dp"
+                android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:textSize="14sp"
+                android:text="@string/order_edit"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="20dp"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/empty"
+                android:src="@drawable/rec"
+                android:padding="4dp"
+                android:layout_gravity="center_horizontal"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:textSize="14sp"
+                android:text="@string/ad"
+                android:gravity="center"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

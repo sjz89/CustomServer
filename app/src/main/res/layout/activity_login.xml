@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/login_bg"
+    android:fitsSystemWindows="true">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/empty"
+        android:layout_marginTop="36dp" />
+
+    <FrameLayout
+        android:id="@+id/username_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="fill_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="5dp"
+            android:inputType="textEmailAddress"
+            android:imeOptions="actionNext"
+            android:maxLength="20"
+            android:paddingEnd="60dp"
+            android:paddingStart="55dp"
+            android:background="@drawable/edit_text_bg"
+            tools:ignore="LabelFor,RtlHardcoded"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="8dp"
+            android:text="@string/login_username"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/bt_username_clear"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/ic_cancel_grey600_48dp"
+            android:visibility="invisible" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/usercode_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/username_layout"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:gravity="center">
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="fill_parent"
+            android:layout_height="48dp"
+            android:inputType="textPassword"
+            android:imeOptions="actionDone"
+            android:maxLength="20"
+            android:paddingEnd="60dp"
+            android:paddingStart="55dp"
+            android:background="@drawable/edit_text_bg"
+            tools:ignore="LabelFor,RtlHardcoded" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="7dp"
+            android:text="@string/login_password" />
+
+        <Button
+            android:id="@+id/bt_pwd_clear"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/ic_cancel_grey600_48dp"
+            android:visibility="invisible" />
+    </FrameLayout>
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/usercode_layout"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_service"
+            android:textSize="13sp"
+            android:textColor="@android:color/white"
+            android:drawableStart="#00000000"
+            android:drawablePadding="4dp"
+            android:button="@drawable/radio_button" />
+
+        <RadioButton
+            android:id="@+id/radio_manager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/radio_maneger"
+            android:textSize="13sp"
+            android:textColor="@android:color/white"
+            android:drawableStart="#00000000"
+            android:drawablePadding="4dp"
+            android:button="@drawable/radio_button"/>
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/login"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radio_group"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="4dp"
+        android:padding="10dp"
+        android:gravity="center"
+        android:background="@drawable/button_shape"
+        android:text="@string/sign_in"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/login_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:text="@string/forget_password"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        android:layout_marginEnd="14dp"
+        android:layout_alignBaseline="@+id/auto_login"
+        android:layout_alignBottom="@+id/auto_login"
+        android:layout_alignParentEnd="true" />
+
+    <CheckBox
+        android:id="@+id/remember_pw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/login"
+        android:layout_below="@+id/login"
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
+        android:button="@drawable/checkbox_button"
+        android:drawableStart="#00000000"
+        android:drawablePadding="6dp"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:text="@string/remember_password"
+        android:textColor="@android:color/white" />
+
+    <CheckBox
+        android:id="@+id/auto_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:text="@string/auto_login"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:drawableStart="#00000000"
+        android:drawablePadding="6dp"
+        android:button="@drawable/checkbox_button"
+        android:layout_alignBaseline="@+id/remember_pw"
+        android:layout_alignBottom="@+id/remember_pw"
+        android:layout_toEndOf="@+id/remember_pw" />
+</RelativeLayout>

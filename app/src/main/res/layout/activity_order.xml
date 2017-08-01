@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context="com.bielang.customserver.activity.OrderActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue_123">
+
+        <ImageButton
+            android:id="@+id/order_back"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_gravity="center_vertical"
+            android:background="#00000000"
+            android:contentDescription="@string/empty"
+            android:paddingEnd="16dp"
+            android:paddingStart="2dp"
+            android:src="@drawable/left_arrow" />
+
+        <TextView
+            android:id="@+id/title_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/order_new"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/order_send_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/button_shape"
+            android:paddingBottom="4dp"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingTop="4dp"
+            android:text="@string/button_send"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginBottom="2dp"
+                android:background="@android:color/white"
+                android:elevation="0.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/order_customerId"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    tools:ignore="RelativeOverlap" />
+
+                <TextView
+                    android:id="@+id/order_customerID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/grey_700"
+                    android:textSize="18sp"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginBottom="2dp"
+                android:background="@android:color/white"
+                android:elevation="0.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/order_customerServiceId"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    tools:ignore="RelativeOverlap" />
+
+                <TextView
+                    android:id="@+id/order_customerServiceID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:textColor="@color/grey_700"
+                    android:textSize="18sp"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginBottom="2dp"
+                android:background="@android:color/white"
+                android:elevation="0.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/order_product_id"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    tools:ignore="RelativeOverlap" />
+
+                <EditText
+                    android:id="@+id/order_id"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:background="#00000000"
+                    android:gravity="end"
+                    android:inputType="number"
+                    android:textColor="@color/grey_700"
+                    android:textSize="18sp"
+                    tools:ignore="LabelFor,RelativeOverlap" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginBottom="2dp"
+                android:background="@android:color/white"
+                android:elevation="0.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/order_address"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    tools:ignore="RelativeOverlap" />
+
+                <EditText
+                    android:id="@+id/order_address"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:background="#00000000"
+                    android:gravity="end"
+                    android:inputType="text"
+                    android:textColor="@color/grey_700"
+                    android:textSize="18sp"
+                    tools:ignore="LabelFor,RelativeOverlap" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/order_choose_date"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginBottom="2dp"
+                android:background="@android:color/white"
+                android:elevation="0.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/order_end_time"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    tools:ignore="RelativeOverlap" />
+
+                <TextView
+                    android:id="@+id/order_end_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="end"
+                    android:textColor="@color/grey_700"
+                    android:textSize="18sp"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginBottom="2dp"
+                android:background="@android:color/white"
+                android:elevation="0.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/order_tel"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    tools:ignore="RelativeOverlap" />
+
+                <EditText
+                    android:id="@+id/order_tel"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:background="#00000000"
+                    android:gravity="end"
+                    android:inputType="phone"
+                    android:textColor="@color/grey_700"
+                    android:textSize="18sp"
+                    tools:ignore="LabelFor,RelativeOverlap" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/order_add_remarks"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginBottom="2dp"
+                android:background="@android:color/white"
+                android:elevation="0.5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/order_remarks"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="normal"
+                    tools:ignore="RelativeOverlap" />
+
+                <TextView
+                    android:id="@+id/order_remarks"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="end"
+                    android:textColor="@color/grey_700"
+                    android:textSize="18sp"
+                    android:maxLines="1"
+                    tools:ignore="RelativeOverlap" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

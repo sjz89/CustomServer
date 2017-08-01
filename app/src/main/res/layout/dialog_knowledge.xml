@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginBottom="2dp"
+            android:background="@android:color/white"
+            android:elevation="0.5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:text="@string/knowledge_title"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                tools:ignore="RelativeOverlap" />
+
+            <TextView
+                android:id="@+id/knowledge_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                tools:ignore="RelativeOverlap" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginBottom="2dp"
+            android:background="@android:color/white"
+            android:elevation="0.5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:text="@string/knowledge_category"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                tools:ignore="RelativeOverlap" />
+
+            <TextView
+                android:id="@+id/knowledge_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                tools:ignore="RelativeOverlap" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white">
+
+            <TextView
+                android:id="@+id/textView_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/knowledge_content"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="normal"
+                tools:ignore="RelativeOverlap" />
+
+            <TextView
+                android:id="@+id/knowledge_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textView_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="8dp"
+                android:textIsSelectable="true"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                tools:ignore="RelativeOverlap" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</ScrollView>

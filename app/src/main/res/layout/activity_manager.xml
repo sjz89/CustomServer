@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.bielang.customserver.activity.ManagerActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_manager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue_123"
+        android:fitsSystemWindows="true"
+        android:elevation="1dp"
+        android:minHeight="?attr/actionBarSize">
+
+        <TextView
+            android:id="@+id/title_managerActivity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|top"
+            android:padding="12dp"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="normal" />
+
+        <ImageView
+            android:id="@+id/switch_to_service"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/switch_manager"
+            android:contentDescription="@string/empty"
+            android:layout_gravity="end|top"
+            android:background="#00000000"
+            android:layout_marginEnd="16dp"/>
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:id="@+id/home_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="visible"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:padding="6dp"
+                    android:background="@drawable/monitor_bg_1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/monitor_complete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/zero"
+                        android:textSize="28sp"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@android:color/white"
+                        android:text="@string/conversation_complete"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:padding="6dp"
+                    android:background="@drawable/monitor_bg_2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/monitor_degree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/zero_persent"
+                        android:textSize="28sp"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@android:color/white"
+                        android:text="@string/degree"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:padding="6dp"
+                    android:background="@drawable/monitor_bg_3"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/monitor_newCustomer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/zero"
+                        android:textSize="28sp"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@android:color/white"
+                        android:text="@string/newCustomer"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:padding="6dp"
+                    android:background="@drawable/monitor_bg_4"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/monitor_danger"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/zero"
+                        android:textSize="28sp"
+                        android:textColor="@android:color/white"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:textColor="@android:color/white"
+                        android:text="@string/danger"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/chart_data"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:paddingBottom="4dp"
+                android:background="@drawable/layout_bg">
+
+                <lecho.lib.hellocharts.view.LineChartView
+                    android:id="@+id/data_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp" />
+
+                <TextView
+                    android:id="@+id/today_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/data_chart"
+                    android:layout_marginStart="64dp"
+                    android:text="@string/today_visit"
+                    android:textColor="@color/blue"
+                    android:drawableStart="@drawable/blue_dot"/>
+                <TextView
+                    android:id="@+id/today_undo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/data_chart"
+                    android:layout_toEndOf="@id/today_number"
+                    android:layout_marginStart="24dp"
+                    android:text="@string/today_chat"
+                    android:textColor="@color/orange"
+                    android:drawableStart="@drawable/orange_dot"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/data_chart"
+                    android:layout_toEndOf="@id/today_undo"
+                    android:layout_marginStart="24dp"
+                    android:text="@string/cs_window"
+                    android:textColor="@color/green_400"
+                    android:drawableStart="@drawable/green_dot"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/data_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/rfm_data"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:paddingBottom="4dp"
+                android:background="@drawable/layout_bg">
+
+                <lecho.lib.hellocharts.view.BubbleChartView
+                    android:id="@+id/data_bubble_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp" />
+
+            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/hot_word"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="6dp"
+                android:paddingBottom="4dp"
+                android:background="@drawable/layout_bg">
+
+                <lecho.lib.hellocharts.view.ColumnChartView
+                    android:id="@+id/data_column_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="240dp" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </ScrollView>
+    <LinearLayout
+        android:id="@+id/monitor_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/monitor_listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/manager_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/manager_bottom_menu" />
+
+</LinearLayout>

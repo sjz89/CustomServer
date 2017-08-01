@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="bubble">
+        <attr name="bubbleDirection">
+            <enum name="left" value="0" />
+            <enum name="top" value="1" />
+            <enum name="right" value="2" />
+            <enum name="bottom" value="3" />
+        </attr>
+        <attr name="bubbleArrowWidth" format="dimension" />
+        <attr name="bubbleArrowHeight" format="dimension" />
+        <attr name="bubbleArrowWhetherCenterVertical" format="boolean" />
+        <attr name="bubbleRadius" format="dimension" />
+        <attr name="bubbleMarginTop" format="dimension" />
+        <attr name="bubbleMarginLeft" format="dimension" />
+        <attr name="bubbleStrokeWidth" format="dimension" />
+        <attr name="bubbleStrokeColor" format="color" />
+        <attr name="bubbleBackGround" format="color" />
+    </declare-styleable>
+
+    <!-- Declare custom theme attributes that allow changing which styles are
+         used for button bars depending on the API level.
+         ?android:attr/buttonBarStyle is new as of API 11 so this is
+         necessary to support previous API levels. -->
+    <declare-styleable name="ButtonBarContainerTheme">
+        <attr name="metaButtonBarStyle" format="reference" />
+        <attr name="metaButtonBarButtonStyle" format="reference" />
+    </declare-styleable>
+</resources>

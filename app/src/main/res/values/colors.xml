@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="blue_light">#81D4FA</color>
+    <color name="blue_123">#46b4f5</color>
+    <color name="blue">#4FC3F7</color>
+    <color name="blue_dark">#5098CD</color>
+    <color name="grey_100">#F5F5F5</color>
+    <color name="grey_110">#70F5F5F5</color>
+    <color name="grey_200">#EEEEEE</color>
+    <color name="grey_300">#E0E0E0</color>
+    <color name="grey_400">#BDBDBD</color>
+    <color name="grey_700">#616161</color>
+    <color name="grey_650">#E6616161</color>
+    <color name="grey_800">#424242</color>
+    <color name="black">#000000</color>
+    <color name="green_400">#00E676</color>
+    <color name="green_700">#00C853</color>
+
+    <color name="reply_button_disable">#f5f5f5</color>
+    <color name="reply_button_text">#dfFFFFFF</color>
+    <color name="reply_button_text_disable">#b8b8b8</color>
+    <color name="text_primary">#df000000</color>
+    <color name="bg_edittext_color">#00000000</color>
+    <color name="bg_horizontal_line_color">#80a3a4a7</color>
+    <color name="bg_horizontal_btn_normal">#eeeeee</color>
+    <color name="bg_horizontal_btn_selected">#70a3a4a7</color>
+    <color name="bg_indicator_point_normal">#D8D8D8</color>
+    <color name="bg_indicator_point_selected">#A6A6A6</color>
+    <color name="red_400">#F2EF5350</color>
+    <color name="red_500">#F2F44336</color>
+    <color name="orange">#FFB300</color>
+</resources>

@@ -518,14 +518,15 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         realm.close();
         if (null != mIat) {
             // 退出时释放连接
             mIat.cancel();
             mIat.destroy();
         }
+
     }
 
     @Override

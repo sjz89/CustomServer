@@ -3,7 +3,6 @@ package com.bielang.customserver.emotion;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -11,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bielang.customserver.R;
@@ -57,13 +57,16 @@ public class EmotionMainFragment extends BaseFragment {
 
     private LinearLayout order_edit;
     private LinearLayout ad;
+    private LinearLayout quick_reply;
+    private ListView quick_reply_list;
+    private View rootView;
 
     /**
      * 创建与Fragment对象关联的View视图时调用
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.fragment_main_emotion, container, false);
+        rootView = inflater.inflate(R.layout.fragment_main_emotion, container, false);
         isHidenBarEditTextAndBtn= args.getBoolean(EmotionMainFragment.HIDE_BAR_EDITTEXT_AND_BTN);
         //获取判断绑定对象的参数
         isBindToBarEditText=args.getBoolean(EmotionMainFragment.BIND_TO_EDITTEXT);
@@ -78,67 +81,11 @@ public class EmotionMainFragment extends BaseFragment {
                 .bindToContent(contentView)
                 .bindToEditText(!isBindToBarEditText ? ((EditText) contentView) : ((EditText) rootView.findViewById(R.id.InputBox)))//判断绑定那种EditView
                 .build();
-        rootView.findViewById(R.id.emotion_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mMoreActionKeyboard.isEmotionLayoutShown())
-                    mMoreActionKeyboard.hideEmotionLayout(false);
-                if (mEmotionKeyboard.isEmotionLayoutShown()){
-                    mEmotionKeyboard.lockContentHeight();
-                    mEmotionKeyboard.hideEmotionLayout(true);
-                    mEmotionKeyboard.unlockContentHeightDelayed();
-                }else{
-                    if (mEmotionKeyboard.isSoftInputShown()){
-                        mEmotionKeyboard.lockContentHeight();
-                        mEmotionKeyboard.showEmotionLayout();
-                        mEmotionKeyboard.unlockContentHeightDelayed();
-                    }else
-                        mEmotionKeyboard.showEmotionLayout();
-                }
-            }
-        });
-        rootView.findViewById(R.id.work_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mEmotionKeyboard.isEmotionLayoutShown())
-                    mEmotionKeyboard.hideEmotionLayout(false);
-                if (mMoreActionKeyboard.isEmotionLayoutShown()){
-                    mMoreActionKeyboard.lockContentHeight();
-                    mMoreActionKeyboard.hideEmotionLayout(true);
-                    mMoreActionKeyboard.unlockContentHeightDelayed();
-                }else{
-                    if (mMoreActionKeyboard.isSoftInputShown()){
-                        mMoreActionKeyboard.lockContentHeight();
-                        mMoreActionKeyboard.showEmotionLayout();
-                        mMoreActionKeyboard.unlockContentHeightDelayed();
-                    }else
-                        mMoreActionKeyboard.showEmotionLayout();
-                }
-            }
-        });
-        rootView.findViewById(R.id.InputBox).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                final EmotionKeyboard keyboard;
-                if (mEmotionKeyboard.isEmotionLayoutShown())
-                    keyboard=mEmotionKeyboard;
-                else
-                    keyboard=mMoreActionKeyboard;
-                if (event.getAction() == MotionEvent.ACTION_UP && keyboard.isEmotionLayoutShown()) {
-                    keyboard.lockContentHeight();
-                    keyboard.hideEmotionLayout(true);
-                    rootView.findViewById(R.id.InputBox).postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            keyboard.unlockContentHeightDelayed();
-                        }
-                    }, 200L);
-                }
-                return false;
-            }
-        });
+
         order_edit=mMoreActionKeyboard.getmContentView().findViewById(R.id.order_edit);
         ad=mMoreActionKeyboard.getmContentView().findViewById(R.id.ad);
+        quick_reply=mMoreActionKeyboard.getmContentView().findViewById(R.id.quick_reply);
+        quick_reply_list=mMoreActionKeyboard.getmContentView().findViewById(R.id.quick_reply_list);
         initListener();
         initDatas();
         //创建全局监听
@@ -184,6 +131,71 @@ public class EmotionMainFragment extends BaseFragment {
      * 初始化监听器
      */
     protected void initListener(){
+        rootView.findViewById(R.id.emotion_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mMoreActionKeyboard.isEmotionLayoutShown())
+                    mMoreActionKeyboard.hideEmotionLayout(false);
+                if (mEmotionKeyboard.isEmotionLayoutShown()){
+                    mEmotionKeyboard.lockContentHeight();
+                    mEmotionKeyboard.hideEmotionLayout(true);
+                    mEmotionKeyboard.unlockContentHeightDelayed();
+                }else{
+                    if (mEmotionKeyboard.isSoftInputShown()){
+                        mEmotionKeyboard.lockContentHeight();
+                        mEmotionKeyboard.showEmotionLayout();
+                        mEmotionKeyboard.unlockContentHeightDelayed();
+                    }else
+                        mEmotionKeyboard.showEmotionLayout();
+                }
+            }
+        });
+        rootView.findViewById(R.id.work_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (quick_reply_list.getVisibility() == View.VISIBLE) {
+                    quick_reply_list.setVisibility(View.GONE);
+                    quick_reply.setVisibility(View.VISIBLE);
+                    ad.setVisibility(View.VISIBLE);
+                    order_edit.setVisibility(View.VISIBLE);
+                }
+                if (mEmotionKeyboard.isEmotionLayoutShown())
+                    mEmotionKeyboard.hideEmotionLayout(false);
+                if (mMoreActionKeyboard.isEmotionLayoutShown()){
+                    mMoreActionKeyboard.lockContentHeight();
+                    mMoreActionKeyboard.hideEmotionLayout(true);
+                    mMoreActionKeyboard.unlockContentHeightDelayed();
+                }else{
+                    if (mMoreActionKeyboard.isSoftInputShown()){
+                        mMoreActionKeyboard.lockContentHeight();
+                        mMoreActionKeyboard.showEmotionLayout();
+                        mMoreActionKeyboard.unlockContentHeightDelayed();
+                    }else
+                        mMoreActionKeyboard.showEmotionLayout();
+                }
+            }
+        });
+        rootView.findViewById(R.id.InputBox).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                final EmotionKeyboard keyboard;
+                if (mEmotionKeyboard.isEmotionLayoutShown())
+                    keyboard=mEmotionKeyboard;
+                else
+                    keyboard=mMoreActionKeyboard;
+                if (event.getAction() == MotionEvent.ACTION_UP && keyboard.isEmotionLayoutShown()) {
+                    keyboard.lockContentHeight();
+                    keyboard.hideEmotionLayout(true);
+                    rootView.findViewById(R.id.InputBox).postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            keyboard.unlockContentHeightDelayed();
+                        }
+                    }, 200L);
+                }
+                return false;
+            }
+        });
     }
 
     /**
@@ -278,6 +290,11 @@ public class EmotionMainFragment extends BaseFragment {
     public LinearLayout getView(int witch){
         if (witch==0)
             return order_edit;
-        return ad;
+        else if (witch==1)
+            return ad;
+        return quick_reply;
+    }
+    public ListView getList(){
+        return quick_reply_list;
     }
 }

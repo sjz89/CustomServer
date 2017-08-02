@@ -240,4 +240,9 @@ public class HttpPost {
                 "&company_id="+MyApplication.getInstance().getMyInfo().getCompanyId();
         return getPost(path,data);
     }
+    public static String get_quick_reply_msg(){
+        String path=url+"quickmessage_pageQuery.action";
+        String data="limit=20&offset=0&serviceid"+MyApplication.getInstance().getMyInfo().getId();
+        return getPost(path,data);
+    }
 }

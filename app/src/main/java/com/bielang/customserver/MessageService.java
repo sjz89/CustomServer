@@ -89,7 +89,6 @@ public class MessageService extends Service {
                                     ringtoneNotify();
                                 break;
                             case 2100:
-                            case 1200:
                                 chatMessage = new ChatMessage(MyApplication.getInstance().getMyInfo().getId(),
                                         jsonString.getInt("customer_id"), ChatMessage.MessageType_From, jsonString.getString("content"), new Date());
                                 for (int i = 0; i < list.size(); i++)

@@ -120,7 +120,8 @@ public class MsgListAdapter extends RecyclerView.Adapter<MsgListAdapter.MyViewHo
                 });
             }
         }
-        Glide.with(mContext).load(mData.get(position).getHeader()).error(R.drawable.pic_sul1).into(holder.Head);
+        Glide.with(mContext).load(mData.get(position).getHeader()).into(holder.Head);
+        holder.Level.setText(String.valueOf("Lv."+(int)mData.get(position).getLevel()));
         holder.Name.setText(mData.get(position).getName());
         holder.LastMsg.setText(SpanStringUtils.getEmotionContent(EMOTION_CLASSIC_TYPE,
                 mContext, holder.LastMsg, mData.get(position).getLastMsg()));
@@ -163,6 +164,7 @@ public class MsgListAdapter extends RecyclerView.Adapter<MsgListAdapter.MyViewHo
     class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView Head;
         private TextView Name;
+        private TextView Level;
         private TextView LastMsg;
         private TextView LastTime;
         private TextView MsgNumber;
@@ -175,6 +177,7 @@ public class MsgListAdapter extends RecyclerView.Adapter<MsgListAdapter.MyViewHo
             super(view);
             Head=view.findViewById(R.id.msgList_headImage);
             Name=view.findViewById(R.id.msgList_name);
+            Level=view.findViewById(R.id.msgList_level);
             LastMsg=view.findViewById(R.id.msgList_msg);
             LastTime=view.findViewById(R.id.msgList_time);
             MsgNumber = view.findViewById(R.id.msgList_number);

@@ -3,10 +3,8 @@ package com.bielang.customserver;
 import android.app.Application;
 
 import com.bielang.customserver.bean.UserInfo;
-import com.facebook.stetho.Stetho;
+import com.bielang.customserver.util.Migration;
 import com.iflytek.cloud.SpeechUtility;
-import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
-
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -28,13 +26,9 @@ public class MyApplication extends Application {
         super.onCreate();
         myApp = this;
         Realm.init(this);
-        RealmConfiguration config = new RealmConfiguration.Builder().name("changlian.realm").build();
+        RealmConfiguration config = new RealmConfiguration.Builder().schemaVersion(1)
+                .deleteRealmIfMigrationNeeded().name("changlian.realm").build();
         Realm.setDefaultConfiguration(config);
-        Stetho.initialize(
-                Stetho.newInitializerBuilder(this)
-                        .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
-                        .enableWebKitInspector(RealmInspectorModulesProvider.builder(this).build())
-                        .build());
     }
     private void keepInfo(UserInfo mInfo){
         Realm realm=Realm.getDefaultInstance();

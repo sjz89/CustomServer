@@ -93,6 +93,7 @@ import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmResults;
 import io.realm.Sort;
+
 import static com.bielang.customserver.util.GetStatusBarHeight.getStatusBarHeight;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -129,7 +130,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private WorkAdapter doneAdapter;
     private Realm realm;
     private TextView customer_name;
-    private TextView customer_level;
     private TextView customer_sex;
     private TextView customer_area;
     private TextView customer_keyword;
@@ -337,7 +337,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             public void onLongClick(View view, int position) {
                 CustomerInfo customerInfo = realm.where(CustomerInfo.class).equalTo("id", mData.get(position).getId()).findFirst();
                 customer_name.setText(customerInfo.getName());
-                customer_level.setText(String.valueOf((int) customerInfo.getLevel()));
                 customer_sex.setText(customerInfo.getSex());
                 String subStr[] =customerInfo.getArea().split(",");
                 String text="";
@@ -358,7 +357,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         View Alertview = inflater.inflate(R.layout.dialog_customer_info, null);
         customer_name = Alertview.findViewById(R.id.customer_name);
-        customer_level = Alertview.findViewById(R.id.customer_level);
         customer_sex = Alertview.findViewById(R.id.customer_sex);
         customer_area = Alertview.findViewById(R.id.customer_area);
         customer_keyword = Alertview.findViewById(R.id.customer_keyWord);
@@ -801,8 +799,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     CustomerInfo info = realm.where(CustomerInfo.class).equalTo("id", data.getId()).findFirst();
                     for (int i = 0; i < mData.size(); i++) {
                         if (mData.get(i).getId() == data.getId()) {
-                            if (data.getContent().equals("客户接入"))
+                            if (data.getContent().equals("客户接入")) {
                                 mData.get(i).setName(info.getUsername());
+                                mData.get(i).setLevel(info.getLevel());
+                            }
                             mData.get(i).setNewMsgNumber(mData.get(i).getNewMsgNumber() + 1);
                             if (mBinder.getService().isApplicationBroughtToBackground(MainActivity.this))
                                 notification(mData.get(i).getId(), mData.get(i).getName(), data.getContent());
@@ -813,6 +813,11 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     if (isNew) {
                         MsgList msgList = new MsgList(MyApplication.getInstance().getMyInfo().getId(),data.getId(), info.getUsername(), data.getContent(), data.getDate());
                         msgList.setNewMsgNumber(1);
+                        if (info.getSex().equals("男"))
+                            msgList.setHeader(R.drawable.pic_sul1);
+                        else
+                            msgList.setHeader(R.drawable.pic_sul3);
+                        msgList.setLevel(info.getLevel());
                         if (mBinder.getService().isApplicationBroughtToBackground(MainActivity.this))
                             notification(msgList.getId(), msgList.getName(), data.getContent());
                         mData.add(msgList);
@@ -860,7 +865,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
         }
     };
-    //    private Runnable getLeaveMsg=new Runnable() {
+//    private Runnable getLeaveMsg=new Runnable()
 //        @Override
 //        public void run() {
 //            while(Thread.currentThread().isAlive()) {

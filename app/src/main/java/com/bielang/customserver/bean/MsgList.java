@@ -20,8 +20,9 @@ public class MsgList extends RealmObject{
     private String mName;
     private String mLastMsg;
     private Date mLastTime;
+    private double level;
     private int mNewMsgNumber;
-    private String mHeaderUrl="";
+    private int mHeaderUrl;
     public MsgList(){}
     public MsgList(int csId,int id, String name, String lastMsg, Date lastTime){
         this.csId=csId;
@@ -55,7 +56,7 @@ public class MsgList extends RealmObject{
     public void setNewMsgNumber(int newMsgNumber){
         this.mNewMsgNumber=newMsgNumber;
     }
-    public void setHeader(String headerUrl){
+    public void setHeader(int headerUrl){
         this.mHeaderUrl=headerUrl;
     }
     public int getId(){
@@ -76,8 +77,14 @@ public class MsgList extends RealmObject{
     public int getNewMsgNumber(){
         return this.mNewMsgNumber;
     }
-    public String getHeader(){
+    public int getHeader(){
         return this.mHeaderUrl;
+    }
+    public double getLevel() {
+        return level;
+    }
+    public void setLevel(double level) {
+        this.level = level;
     }
 
 }

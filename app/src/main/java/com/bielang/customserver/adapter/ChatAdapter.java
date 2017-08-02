@@ -31,10 +31,10 @@ public class ChatAdapter extends RecyclerView.Adapter implements View.OnClickLis
 
     private Context mContext;
     private ArrayList<ChatMessage> mData;
-    private String Header_From="";
+    private int Header_From;
     private OnItemClickListener mOnItemClickListener = null;
 
-    public ChatAdapter(Context context, ArrayList<ChatMessage> data, String header_From) {
+    public ChatAdapter(Context context, ArrayList<ChatMessage> data, int header_From) {
         this.mContext = context;
         this.mData = data;
         this.Header_From = header_From;
@@ -80,13 +80,12 @@ public class ChatAdapter extends RecyclerView.Adapter implements View.OnClickLis
                 ((FromViewHolder)holder).get_time.setText(DateUtil.AutoTransFormat(mData.get(position).getDate()));
             else {
                 if (mData.get(position-1).getType()==ChatMessage.MessageType_Hint
-                        ||mData.get(position).getDate().getTime() - mData.get(position - 1).getDate().getTime() >= 60000)
+                        ||mData.get(position).getDate().getTime() - mData.get(position - 1).getDate().getTime() >= 30000)
                     ((FromViewHolder) holder).get_time.setText(DateUtil.AutoTransFormat(mData.get(position).getDate()));
                 else
                     ((FromViewHolder) holder).get_time.setVisibility(View.GONE);
             }
-            Glide.with(MyApplication.getInstance()).load(Header_From).error(R.drawable.pic_sul1)
-                    .into(((FromViewHolder) holder).Head_from);
+            Glide.with(MyApplication.getInstance()).load(Header_From).into(((FromViewHolder) holder).Head_from);
             ((FromViewHolder) holder).Content_from.setText( SpanStringUtils.getEmotionContent
                     (EMOTION_CLASSIC_TYPE,mContext,((FromViewHolder) holder).Content_from,mData.get(position).getContent()));
             if (mOnItemClickListener!=null){
@@ -103,7 +102,7 @@ public class ChatAdapter extends RecyclerView.Adapter implements View.OnClickLis
                 ((ToViewHolder)holder).send_time.setText(DateUtil.AutoTransFormat(mData.get(position).getDate()));
             else {
                 if (mData.get(position-1).getType()==ChatMessage.MessageType_Hint
-                        ||mData.get(position).getDate().getTime() - mData.get(position - 1).getDate().getTime() >= 60000)
+                        ||mData.get(position).getDate().getTime() - mData.get(position - 1).getDate().getTime() >= 30000)
                     ((ToViewHolder) holder).send_time.setText(DateUtil.AutoTransFormat(mData.get(position).getDate()));
                 else
                     ((ToViewHolder) holder).send_time.setVisibility(View.GONE);
@@ -126,7 +125,7 @@ public class ChatAdapter extends RecyclerView.Adapter implements View.OnClickLis
                 ((GoodsViewHolder)holder).send_time.setText(DateUtil.AutoTransFormat(mData.get(position).getDate()));
             else {
                 if (mData.get(position-1).getType()==ChatMessage.MessageType_Hint
-                        ||mData.get(position).getDate().getTime() - mData.get(position - 1).getDate().getTime() >= 60000)
+                        ||mData.get(position).getDate().getTime() - mData.get(position - 1).getDate().getTime() >= 30000)
                     ((GoodsViewHolder) holder).send_time.setText(DateUtil.AutoTransFormat(mData.get(position).getDate()));
                 else
                     ((GoodsViewHolder) holder).send_time.setVisibility(View.GONE);

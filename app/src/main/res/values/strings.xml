@@ -86,4 +86,5 @@
     <string name="knowledge_title">知识标题</string>
     <string name="knowledge_category">知识类别</string>
     <string name="knowledge_content">知识内容</string>
+    <string name="quick_reply">快捷回复</string>
 </resources>

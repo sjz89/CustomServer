@@ -39,15 +39,18 @@ import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bielang.customserver.MessageService;
 import com.bielang.customserver.MyApplication;
+import com.bielang.customserver.adapter.QuickReplyAdapter;
 import com.bielang.customserver.bean.CustomerInfo;
 import com.bielang.customserver.bean.SendMessage;
 import com.bielang.customserver.adapter.ChatAdapter;
@@ -106,6 +109,11 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private TextView goodsId;
     private TextView msgNum;
     private int newMsg;
+    private LinearLayout order_edit;
+    private LinearLayout ad;
+    private LinearLayout quick_reply;
+    private ListView quick_reply_list;
+    private ArrayList<String> msgList;
 
     private SpeechRecognizer mIat;
     private RecognizerDialog mIatDialog;
@@ -188,7 +196,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         mData = (ArrayList<ChatMessage>) realm.copyFromRealm(messages);
 
         //创建接收器时传入头像id
-        mAdapter = new ChatAdapter(this, mData, getIntent().getStringExtra("header"));
+        mAdapter = new ChatAdapter(this, mData, getIntent().getIntExtra("header",R.drawable.pic_sul1));
         mAdapter.setOnItemClickListener(new ChatAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -372,6 +380,18 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case 4:
                     Toast.makeText(ChatActivity.this,"无搜索结果",Toast.LENGTH_SHORT).show();
+                case 5:
+                    String json=(String)msg.obj;
+                    try {
+                        JSONObject jsonObject=new JSONObject(json);
+                        int total=jsonObject.getInt("total");
+                        JSONArray jsonArray=jsonObject.getJSONArray("rows");
+                        for (int i=0;i<total;i++){
+                            msgList.add(jsonArray.getJSONObject(i).getString("content"));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 default:
                     break;
             }
@@ -388,6 +408,19 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             msg.setData(data);
             msg.what = 2;
             handler.sendMessage(msg);
+        }
+    };
+
+    private Runnable get_quick_msg=new Runnable() {
+        @Override
+        public void run() {
+            String jsonStr=HttpPost.get_quick_reply_msg();
+            if (jsonStr!=null){
+                Message msg=new Message();
+                msg.obj=jsonStr;
+                msg.what=5;
+                handler.sendMessage(msg);
+            }
         }
     };
 
@@ -465,8 +498,23 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         voice_button.setOnClickListener(this);
         work_button.setVisibility(View.VISIBLE);
         BtnSend.setOnClickListener(this);
-        emotionMainFragment.getView(0).setOnClickListener(this);
-        emotionMainFragment.getView(1).setOnClickListener(this);
+        order_edit=emotionMainFragment.getView(0);
+        order_edit.setOnClickListener(this);
+        ad=emotionMainFragment.getView(1);
+        ad.setOnClickListener(this);
+        quick_reply=emotionMainFragment.getView(2);
+        quick_reply.setOnClickListener(this);
+        quick_reply_list=emotionMainFragment.getList();
+        msgList=new ArrayList<>();
+        new Thread(get_quick_msg).start();
+        QuickReplyAdapter adapter=new QuickReplyAdapter(this,msgList);
+        quick_reply_list.setAdapter(adapter);
+        quick_reply_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                InputBox.setText(msgList.get(i));
+            }
+        });
     }
 
     @Override
@@ -529,6 +577,12 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.ad:
                 new Thread(get_goods_info).start();
+                break;
+            case R.id.quick_reply:
+                order_edit.setVisibility(View.GONE);
+                ad.setVisibility(View.GONE);
+                quick_reply.setVisibility(View.GONE);
+                quick_reply_list.setVisibility(View.VISIBLE);
                 break;
             case R.id.voice_button:
                 FlowerCollector.onEvent(ChatActivity.this, "iat_recognize");

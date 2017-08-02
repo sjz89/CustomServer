@@ -42,38 +42,7 @@
         android:layout_marginEnd="24dp"
         android:background="@color/grey_100"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="28dp"
-            android:text="@string/customer_level"
-            android:textColor="@android:color/black"
-            android:textSize="18sp"
-            android:textStyle="normal"
-            tools:ignore="RelativeOverlap" />
-
-        <TextView
-            android:id="@+id/customer_level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="28dp"
-            android:textColor="@color/grey_700"
-            android:textSize="18sp"
-            tools:ignore="RelativeOverlap" />
-    </RelativeLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:background="@color/grey_100"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="45dp">

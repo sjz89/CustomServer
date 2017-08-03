@@ -1,5 +1,6 @@
 package com.bielang.customserver.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,10 +15,13 @@ import android.widget.TextView;
 
 import com.bielang.customserver.R;
 import com.bielang.customserver.bean.WorkList;
+import com.bielang.customserver.util.HttpPost;
+import com.bielang.customserver.util.SharePreferencesUtil;
 
 import io.realm.Realm;
 
 public class OrderDetailActivity extends AppCompatActivity {
+    private TextView commit_order;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,13 +37,13 @@ public class OrderDetailActivity extends AppCompatActivity {
 
         int mId=getIntent().getIntExtra("Id",0);
         Realm realm=Realm.getDefaultInstance();
-        WorkList order_data=realm.where(WorkList.class).equalTo("id",mId).findFirst();
+        final WorkList order_data=realm.where(WorkList.class).equalTo("id",mId).findFirst();
 
         TextView id=(TextView)findViewById(R.id.order_detail_id);
         TextView customerId=(TextView)findViewById(R.id.order_detail_customerID);
         TextView customerServiceId=(TextView)findViewById(R.id.order_detail_customerServiceID);
         TextView productId=(TextView)findViewById(R.id.order_detail_product_id);
-        TextView status=(TextView)findViewById(R.id.order_detail_status);
+        final TextView status=(TextView)findViewById(R.id.order_detail_status);
         TextView address=(TextView)findViewById(R.id.order_detail_address);
         TextView end_time=(TextView)findViewById(R.id.order_detail_end_time);
         TextView tel=(TextView)findViewById(R.id.order_detail_tel);
@@ -93,5 +97,31 @@ public class OrderDetailActivity extends AppCompatActivity {
                 seeRemarks.show();
             }
         });
+        if (order_data.getStatus().equals("notfinish")&&SharePreferencesUtil.getValue(this,"isManager",false)) {
+            commit_order = (TextView) findViewById(R.id.order_commit_button);
+            commit_order.setVisibility(View.VISIBLE);
+            commit_order.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new Thread(commitOrder).start();
+                    status.setText("已完成");
+                    commit_order.setVisibility(View.GONE);
+                }
+            });
+        }
     }
+    private Runnable commitOrder=new Runnable() {
+        @Override
+        public void run() {
+            HttpPost.commit_order(getIntent().getIntExtra("Id",0));
+            Realm realm=Realm.getDefaultInstance();
+            realm.beginTransaction();
+            WorkList order=realm.where(WorkList.class).equalTo("id",getIntent().getIntExtra("Id",0)).findFirst();
+            order.setStatus("finish");
+            realm.copyToRealmOrUpdate(order);
+            realm.commitTransaction();
+            realm.close();
+            sendBroadcast(new Intent("refresh_order_list"));
+        }
+    };
 }

@@ -159,6 +159,11 @@ public class HttpPost {
             }
         }
     }
+    public static void commit_order(int id){
+        String path=url+"order_finishByIds.action";
+        String data="ids="+id;
+        getPost(path,data);
+    }
     public static void get_company_order(){
         String path=url+"order_getCompanyOrder.action";
         String data="limit=0&offset=0&company_id="+MyApplication.getInstance().getMyInfo().getCompanyId();
@@ -242,7 +247,7 @@ public class HttpPost {
     }
     public static String get_quick_reply_msg(){
         String path=url+"quickmessage_pageQuery.action";
-        String data="limit=20&offset=0&serviceid"+MyApplication.getInstance().getMyInfo().getId();
+        String data="limit=20&offset=0&serviceid="+MyApplication.getInstance().getMyInfo().getId();
         return getPost(path,data);
     }
 }

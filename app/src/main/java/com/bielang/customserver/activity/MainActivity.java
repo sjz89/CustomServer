@@ -3,9 +3,11 @@ package com.bielang.customserver.activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -182,6 +184,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             mId = -1;
             mAdapter.keepMsgData();
             mAdapter.Refresh();
+        } else {
+            IntentFilter intentFilter = new IntentFilter();
+            intentFilter.addAction("refresh_order_list");
+            registerReceiver(broadcastReceiver, intentFilter);
         }
     }
 
@@ -222,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         setting_layout = (LinearLayout) findViewById(R.id.setting_list);
 
         title = (TextView) findViewById(R.id.title_mainActivity);
-        title_title=(RelativeLayout)findViewById(R.id.title_title);
+        title_title = (RelativeLayout) findViewById(R.id.title_title);
 
         initMessageLayout();
         initWorkLayout();
@@ -286,7 +292,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         mData = new ArrayList<>();
 
         //数据库读取列表
-        RealmResults<MsgList> msgLists = realm.where(MsgList.class).equalTo("csId",MyApplication.getInstance().getMyInfo().getId()).findAll();
+        RealmResults<MsgList> msgLists = realm.where(MsgList.class).equalTo("csId", MyApplication.getInstance().getMyInfo().getId()).findAll();
         mData = (ArrayList<MsgList>) realm.copyFromRealm(msgLists);
 
         mAdapter = new MsgListAdapter(this, mData, new MsgListAdapter.ItemTouchListener() {
@@ -304,7 +310,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             @Override
             public void onRightMenuDeleteClick(View view, int position) {
                 realm.beginTransaction();
-                RealmResults<MsgList> msgLists = realm.where(MsgList.class).equalTo("csId",MyApplication.getInstance().getMyInfo().getId()).equalTo("mId", mData.get(position).getId()).findAll();
+                RealmResults<MsgList> msgLists = realm.where(MsgList.class).equalTo("csId", MyApplication.getInstance().getMyInfo().getId()).equalTo("mId", mData.get(position).getId()).findAll();
                 msgLists.deleteAllFromRealm();
                 realm.commitTransaction();
                 mData.remove(position);
@@ -322,7 +328,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     ChatMessage end_msg = new ChatMessage(MyApplication.getInstance().getMyInfo().getId(),
                             mData.get(position).getId(), ChatMessage.MessageType_End, "已结束对话", new Date());
                     realm.beginTransaction();
-                    RealmResults<ChatMessage> results = realm.where(ChatMessage.class).equalTo("csId",MyApplication.getInstance().getMyInfo().getId()).equalTo("mId", mData.get(position).getId())
+                    RealmResults<ChatMessage> results = realm.where(ChatMessage.class).equalTo("csId", MyApplication.getInstance().getMyInfo().getId()).equalTo("mId", mData.get(position).getId())
                             .equalTo("mType", ChatMessage.MessageType_End).findAll();
                     results.deleteAllFromRealm();
                     realm.copyToRealm(end_msg);
@@ -338,8 +344,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 CustomerInfo customerInfo = realm.where(CustomerInfo.class).equalTo("id", mData.get(position).getId()).findFirst();
                 customer_name.setText(customerInfo.getName());
                 customer_sex.setText(customerInfo.getSex());
-                String subStr[] =customerInfo.getArea().split(",");
-                String text="";
+                String subStr[] = customerInfo.getArea().split(",");
+                String text = "";
                 for (String aSubStr : subStr) text += aSubStr;
                 customer_area.setText(text);
                 String keywordStr = customerInfo.getLastconversationkeyword();
@@ -400,7 +406,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         initEmotionMainFragment();
         leave_messages = new ArrayList<>();
 
-        RealmResults<LeaveMessage> realmResults = realm.where(LeaveMessage.class).equalTo("csId",MyApplication.getInstance().getMyInfo().getId()).findAll();
+        RealmResults<LeaveMessage> realmResults = realm.where(LeaveMessage.class).equalTo("csId", MyApplication.getInstance().getMyInfo().getId()).findAll();
         leave_messages = (ArrayList<LeaveMessage>) realm.copyFromRealm(realmResults);
 
         leave_msg_adapter = new LeaveMsgAdapter(this, leave_messages);
@@ -418,8 +424,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
         });
         if (leave_messages.size() == 0) {
-            leave_messages.add(new LeaveMessage(MyApplication.getInstance().getMyInfo().getId(),8888, "别浪", "看到请回复", new Date(), new RealmList<ReplyMsg>()));
-            leave_messages.add(new LeaveMessage(MyApplication.getInstance().getMyInfo().getId(),9999, "小浪", "啦啦啦啦啦", new Date(), new RealmList<ReplyMsg>()));
+            leave_messages.add(new LeaveMessage(MyApplication.getInstance().getMyInfo().getId(), 8888, "别浪", "看到请回复", new Date(), new RealmList<ReplyMsg>()));
+            leave_messages.add(new LeaveMessage(MyApplication.getInstance().getMyInfo().getId(), 9999, "小浪", "看到请回复", new Date(), new RealmList<ReplyMsg>()));
             leave_msg_adapter.Refresh();
         }
     }
@@ -499,10 +505,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         doingList = new ArrayList<>();
         RealmResults<WorkList> doingResults;
         if (!isManager)
-            doingResults = realm.where(WorkList.class).equalTo("customerserviceId",MyApplication.getInstance().getMyInfo().getId())
+            doingResults = realm.where(WorkList.class).equalTo("customerserviceId", MyApplication.getInstance().getMyInfo().getId())
                     .equalTo("status", "notfinish").or().equalTo("status", "waitconfirm").findAllSorted("id", Sort.DESCENDING);
         else
-            doingResults=realm.where(WorkList.class).equalTo("company_id",MyApplication.getInstance().getMyInfo().getCompanyId())
+            doingResults = realm.where(WorkList.class).equalTo("company_id", MyApplication.getInstance().getMyInfo().getCompanyId())
                     .equalTo("status", "notfinish").or().equalTo("status", "waitconfirm").findAllSorted("id", Sort.DESCENDING);
         for (int i = 0; i < doingResults.size(); i++) {
             doingList.add(i, realm.copyFromRealm(doingResults.get(i)));
@@ -524,10 +530,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         doneList = new ArrayList<>();
         RealmResults<WorkList> doneResults;
         if (!isManager)
-            doneResults= realm.where(WorkList.class).equalTo("customerserviceId",MyApplication.getInstance().getMyInfo().getId())
+            doneResults = realm.where(WorkList.class).equalTo("customerserviceId", MyApplication.getInstance().getMyInfo().getId())
                     .equalTo("status", "finish").or().equalTo("status", "cancel").findAllSorted("id", Sort.DESCENDING);
         else
-            doneResults= realm.where(WorkList.class).equalTo("company_id",MyApplication.getInstance().getMyInfo().getCompanyId())
+            doneResults = realm.where(WorkList.class).equalTo("company_id", MyApplication.getInstance().getMyInfo().getCompanyId())
                     .equalTo("status", "finish").or().equalTo("status", "cancel").findAllSorted("id", Sort.DESCENDING);
         for (int i = 0; i < doneResults.size(); i++) {
             doneList.add(i, realm.copyFromRealm(doneResults.get(i)));
@@ -539,15 +545,15 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(MainActivity.this, OrderDetailActivity.class);
-                intent.putExtra("Id", doingList.get(position).getId());
+                intent.putExtra("Id", doneList.get(position).getId());
                 startActivity(intent);
             }
         });
 
-        search_list=(RecyclerView)findViewById(R.id.search_list);
+        search_list = (RecyclerView) findViewById(R.id.search_list);
         search_list.setLayoutManager(new LinearLayoutManager(this));
-        search_datas=new ArrayList<>();
-        search_adapter=new WorkAdapter(search_datas);
+        search_datas = new ArrayList<>();
+        search_adapter = new WorkAdapter(search_datas);
         search_list.setAdapter(search_adapter);
         search_adapter.setOnItemClickListener(new WorkAdapter.OnItemClickListener() {
             @Override
@@ -566,7 +572,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
         });
 
-        search_box=(EditText)findViewById(R.id.search_box);
+        search_box = (EditText) findViewById(R.id.search_box);
         search_box.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -580,7 +586,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             public void afterTextChanged(Editable editable) {
                 search_datas.clear();
                 search_adapter.notifyDataSetChanged();
-                if (editable.length()!=0) {
+                if (editable.length() != 0) {
                     String text = editable.toString();
                     RealmResults<WorkList> results = realm.where(WorkList.class).equalTo("id", Integer.parseInt(text))
                             .or().equalTo("customerId", Integer.parseInt(text))
@@ -594,8 +600,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
         });
 
-        search_bar=(RelativeLayout)findViewById(R.id.search_bar);
-        search_btn=(ImageView)findViewById(R.id.search_button);
+        search_bar = (RelativeLayout) findViewById(R.id.search_bar);
+        search_btn = (ImageView) findViewById(R.id.search_button);
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -702,7 +708,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
             case R.id.navigation_work:
                 if (work_layout.getVisibility() != View.VISIBLE) {
-                    new Thread(getOrderMsg).start();
+                    if (last_fresh_time == null || new Date().getTime() - last_fresh_time.getTime() > 60000)
+                        new Thread(getOrderMsg).start();
                     if (!isManager) {
                         statement.setVisibility(View.GONE);
                         changeState.setVisibility(View.GONE);
@@ -741,7 +748,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             if (input_layout.getVisibility() == View.VISIBLE) {
                 input_layout.setVisibility(View.GONE);
                 navigation.setVisibility(View.VISIBLE);
-            }else if (search_bar.getVisibility()==View.VISIBLE){
+            } else if (search_bar.getVisibility() == View.VISIBLE) {
                 search_box.setText("");
                 search_datas.clear();
                 viewPager.setVisibility(View.VISIBLE);
@@ -752,7 +759,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 navigation.setVisibility(View.VISIBLE);
                 if (isManager)
                     switch_button.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 moveTaskToBack(true);
             }
         }
@@ -811,7 +818,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                         }
                     }
                     if (isNew) {
-                        MsgList msgList = new MsgList(MyApplication.getInstance().getMyInfo().getId(),data.getId(), info.getUsername(), data.getContent(), data.getDate());
+                        MsgList msgList = new MsgList(MyApplication.getInstance().getMyInfo().getId(), data.getId(), info.getUsername(), data.getContent(), data.getDate());
                         msgList.setNewMsgNumber(1);
                         if (info.getSex().equals("男"))
                             msgList.setHeader(R.drawable.pic_sul1);
@@ -831,10 +838,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 case ORDER_MSG:
                     RealmResults<WorkList> doingResults;
                     if (!isManager)
-                        doingResults = realm.where(WorkList.class).equalTo("customerserviceId",MyApplication.getInstance().getMyInfo().getId())
+                        doingResults = realm.where(WorkList.class).equalTo("customerserviceId", MyApplication.getInstance().getMyInfo().getId())
                                 .equalTo("status", "notfinish").or().equalTo("status", "waitconfirm").findAllSorted("id", Sort.DESCENDING);
                     else
-                        doingResults=realm.where(WorkList.class).equalTo("company_id",MyApplication.getInstance().getMyInfo().getCompanyId())
+                        doingResults = realm.where(WorkList.class).equalTo("company_id", MyApplication.getInstance().getMyInfo().getCompanyId())
                                 .equalTo("status", "notfinish").or().equalTo("status", "waitconfirm").findAllSorted("id", Sort.DESCENDING);
                     doingList.clear();
                     for (int i = 0; i < doingResults.size(); i++) {
@@ -843,10 +850,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                     }
                     RealmResults<WorkList> doneResults;
                     if (!isManager)
-                        doneResults= realm.where(WorkList.class).equalTo("customerserviceId",MyApplication.getInstance().getMyInfo().getId())
+                        doneResults = realm.where(WorkList.class).equalTo("customerserviceId", MyApplication.getInstance().getMyInfo().getId())
                                 .equalTo("status", "finish").or().equalTo("status", "cancel").findAllSorted("id", Sort.DESCENDING);
                     else
-                        doneResults= realm.where(WorkList.class).equalTo("company_id",MyApplication.getInstance().getMyInfo().getCompanyId())
+                        doneResults = realm.where(WorkList.class).equalTo("company_id", MyApplication.getInstance().getMyInfo().getCompanyId())
                                 .equalTo("status", "finish").or().equalTo("status", "cancel").findAllSorted("id", Sort.DESCENDING);
                     doneList.clear();
                     for (int i = 0; i < doneResults.size(); i++) {
@@ -865,7 +872,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             }
         }
     };
-//    private Runnable getLeaveMsg=new Runnable()
+    //    private Runnable getLeaveMsg=new Runnable()
 //        @Override
 //        public void run() {
 //            while(Thread.currentThread().isAlive()) {
@@ -888,16 +895,14 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private Runnable getOrderMsg = new Runnable() {
         @Override
         public void run() {
-            if (last_fresh_time==null||new Date().getTime()-last_fresh_time.getTime()>60000) {
-                last_fresh_time=new Date();
-                if (!isManager)
-                    HttpPost.get_total_order(MyApplication.getInstance().getMyInfo().getId());
-                else
-                    HttpPost.get_company_order();
-                Message msg = new Message();
-                msg.what = ORDER_MSG;
-                handler.sendMessage(msg);
-            }
+            last_fresh_time = new Date();
+            if (!isManager)
+                HttpPost.get_total_order(MyApplication.getInstance().getMyInfo().getId());
+            else
+                HttpPost.get_company_order();
+            Message msg = new Message();
+            msg.what = ORDER_MSG;
+            handler.sendMessage(msg);
         }
     };
     private Runnable end_chat = new Runnable() {
@@ -1031,4 +1036,24 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             mIat.destroy();
         }
     }
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            RealmResults<WorkList> doingResults = realm.where(WorkList.class).equalTo("company_id", MyApplication.getInstance().getMyInfo().getCompanyId())
+                    .equalTo("status", "notfinish").or().equalTo("status", "waitconfirm").findAllSorted("id", Sort.DESCENDING);
+            doingList.clear();
+            for (int i = 0; i < doingResults.size(); i++) {
+                doingList.add(i, realm.copyFromRealm(doingResults.get(i)));
+                doingAdapter.notifyItemChanged(i);
+            }
+            RealmResults<WorkList> doneResults = realm.where(WorkList.class).equalTo("company_id", MyApplication.getInstance().getMyInfo().getCompanyId())
+                    .equalTo("status", "finish").or().equalTo("status", "cancel").findAllSorted("id", Sort.DESCENDING);
+            doneList.clear();
+            for (int i = 0; i < doneResults.size(); i++) {
+                doneList.add(i, realm.copyFromRealm(doneResults.get(i)));
+                doneAdapter.notifyItemChanged(i);
+            }
+        }
+    };
 }

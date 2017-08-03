@@ -70,8 +70,10 @@ public class HttpPost {
         String data="loginid="+userId+"&loginpassword="+password;
         String value=getPost(path,data);
         if (value!=null&&value.equals("success")) {
-            UserInfo userInfo=new UserInfo(userId,"管理员","别浪","小浪","男");
+            UserInfo userInfo=new UserInfo(userId,"管理员","小浪","别浪","男");
             userInfo.setCompanyId(userId);
+            userInfo.setPhone("13568478625");
+            userInfo.setRegisttime("2017-7-20 20.00.00");
             MyApplication.getInstance().setMyInfo(userInfo);
         }
         return value;

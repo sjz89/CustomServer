@@ -178,14 +178,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 et_pass.setText("");
                 break;
             case R.id.login_error:
+                et_pass.clearFocus();
+                et_name.clearFocus();
                 new AlertDialog.Builder(this).setTitle(R.string.forget_password)
                         .setMessage("请联系管理员找回密码").setPositiveButton("知道了",null).show();
                 break;
             case R.id.auto_login:
+                et_pass.clearFocus();
+                et_name.clearFocus();
                 if (auto_login.isChecked())
                     remember_pw.setChecked(true);
                 break;
             case R.id.remember_pw:
+                et_pass.clearFocus();
+                et_name.clearFocus();
                 if(!remember_pw.isChecked())
                     auto_login.setChecked(false);
                 break;

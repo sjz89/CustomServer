@@ -288,11 +288,16 @@ public class EmotionMainFragment extends BaseFragment {
     }
 
     public LinearLayout getView(int witch){
-        if (witch==0)
-            return order_edit;
-        else if (witch==1)
-            return ad;
-        return quick_reply;
+        switch (witch){
+            case 0:
+                return order_edit;
+            case 1:
+                return ad;
+            case 2:
+                return quick_reply;
+            default:
+                return null;
+        }
     }
     public ListView getList(){
         return quick_reply_list;

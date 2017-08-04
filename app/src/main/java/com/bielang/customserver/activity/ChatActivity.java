@@ -237,8 +237,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         newMsg=0;
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancel(mId);
-
-
     }
 
     private void showAlertDialog(String title, final String jsonData, boolean hasButton){

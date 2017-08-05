@@ -16,7 +16,6 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
@@ -68,6 +67,8 @@ import com.iflytek.cloud.RecognizerResult;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
+import com.iflytek.cloud.SpeechSynthesizer;
+import com.iflytek.cloud.SynthesizerListener;
 import com.iflytek.cloud.ui.RecognizerDialog;
 import com.iflytek.cloud.ui.RecognizerDialogListener;
 import com.iflytek.sunflower.FlowerCollector;
@@ -116,6 +117,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<String> msgList;
 
     private SpeechRecognizer mIat;
+    private SpeechSynthesizer mTts;
     private RecognizerDialog mIatDialog;
     private HashMap<String, String> mIatResults = new LinkedHashMap<>();
     private InitListener initListener = new InitListener() {
@@ -143,6 +145,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         realm = Realm.getDefaultInstance();
 
         mIat = SpeechRecognizer.createRecognizer(ChatActivity.this, initListener);
+        mTts = SpeechSynthesizer.createSynthesizer(this, initListener);
         mIatDialog = new RecognizerDialog(ChatActivity.this, initListener);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -196,18 +199,25 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         mData = (ArrayList<ChatMessage>) realm.copyFromRealm(messages);
 
         //创建接收器时传入头像id
-        mAdapter = new ChatAdapter(this, mData, getIntent().getIntExtra("header",R.drawable.pic_sul1));
+        mAdapter = new ChatAdapter(this, mData, getIntent().getIntExtra("header", R.drawable.pic_sul1));
         mAdapter.setOnItemClickListener(new ChatAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                showAlertDialog("商品详情",mData.get(position).getContent(),false);
+                showAlertDialog("商品详情", mData.get(position).getContent(), false);
             }
 
             @Override
             public void onTextClick(View view, int position) {
-                showPopWindows(view,position);
+                showPopWindows(view, position);
             }
 
+            @Override
+            public void onVoiceClick(View view, int position) {
+                String text = mData.get(position).getContent();
+                // 设置参数
+                setVoiceParam();
+                mTts.startSpeaking(text, mTtsListener);
+            }
         });
 
         mListView.setAdapter(mAdapter);
@@ -232,14 +242,14 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         initEmotionMainFragment();
-        msgNum=(TextView)findViewById(R.id.msg_num);
+        msgNum = (TextView) findViewById(R.id.msg_num);
         msgNum.setVisibility(View.INVISIBLE);
-        newMsg=0;
+        newMsg = 0;
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         notificationManager.cancel(mId);
     }
 
-    private void showAlertDialog(String title, final String jsonData, boolean hasButton){
+    private void showAlertDialog(String title, final String jsonData, boolean hasButton) {
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
         View Alertview = inflater.inflate(R.layout.dialog_goods, null);
         goodsId = Alertview.findViewById(R.id.goods_id);
@@ -252,7 +262,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         AlertDialog goods = new AlertDialog.Builder(ChatActivity.this).create();
         goods.setTitle(title);
         goods.setView(Alertview);
-        if (hasButton){
+        if (hasButton) {
             goods.setButton(DialogInterface.BUTTON_POSITIVE, "推荐", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -293,28 +303,29 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @SuppressWarnings("deprecation")
-    private void showKnowledgeDialog(String jsonStr){
+    private void showKnowledgeDialog(String jsonStr) {
         try {
-            JSONArray jsonArray=new JSONArray(jsonStr);
+            JSONArray jsonArray = new JSONArray(jsonStr);
             LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
             View knowledgeView = inflater.inflate(R.layout.dialog_knowledge, null);
-            TextView knowledge_title=knowledgeView.findViewById(R.id.knowledge_title);
-            TextView knowledge_category=knowledgeView.findViewById(R.id.knowledge_category);
-            TextView knowledge_content=knowledgeView.findViewById(R.id.knowledge_content);
-            AlertDialog showKnowledge=new AlertDialog.Builder(ChatActivity.this).create();
+            TextView knowledge_title = knowledgeView.findViewById(R.id.knowledge_title);
+            TextView knowledge_category = knowledgeView.findViewById(R.id.knowledge_category);
+            TextView knowledge_content = knowledgeView.findViewById(R.id.knowledge_content);
+            AlertDialog showKnowledge = new AlertDialog.Builder(ChatActivity.this).create();
             showKnowledge.setView(knowledgeView);
             showKnowledge.setTitle("搜索结果");
-            String title=jsonArray.getJSONObject(0).getString("title");
-            String category=jsonArray.getJSONObject(0).getString("category");
-            String content=jsonArray.getJSONObject(0).getString("content");
+            String title = jsonArray.getJSONObject(0).getString("title");
+            String category = jsonArray.getJSONObject(0).getString("category");
+            String content = jsonArray.getJSONObject(0).getString("content");
             knowledge_title.setText(Html.fromHtml(title));
             knowledge_category.setText(Html.fromHtml(category));
-            knowledge_content.setText(Html.fromHtml("\u3000\u3000"+content));
+            knowledge_content.setText(Html.fromHtml("\u3000\u3000" + content));
             showKnowledge.show();
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
     @Override
     public void onDataChange(ChatMessage data) {
         Message msg = new Message();
@@ -351,13 +362,13 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                         mData.add(data);
                         mAdapter.notifyItemChanged(mData.size() - 1);
                         mListView.smoothScrollToPosition(mData.size() - 1);
-                    }else{
+                    } else {
                         CustomerInfo info = realm.where(CustomerInfo.class).equalTo("id", data.getId()).findFirst();
-                        if (msgNum.getVisibility()!=View.VISIBLE)
+                        if (msgNum.getVisibility() != View.VISIBLE)
                             msgNum.setVisibility(View.VISIBLE);
-                        if (newMsg<99)
+                        if (newMsg < 99)
                             msgNum.setText(String.valueOf(++newMsg));
-                        notification(data.getId(),info.getName(),data.getContent());
+                        notification(data.getId(), info.getName(), data.getContent());
                     }
                     break;
                 case 2:
@@ -366,7 +377,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                         try {
                             JSONObject jsonObject = new JSONObject(jsonStr);
                             String jsonData = jsonObject.getString("productJSON");
-                            showAlertDialog("商品推荐",jsonData,true);
+                            showAlertDialog("商品推荐", jsonData, true);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -377,14 +388,14 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                     showKnowledgeDialog(msg.getData().getString("jsonStr"));
                     break;
                 case 4:
-                    Toast.makeText(ChatActivity.this,"无搜索结果",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChatActivity.this, "无搜索结果", Toast.LENGTH_SHORT).show();
                 case 5:
-                    String json=(String)msg.obj;
+                    String json = (String) msg.obj;
                     try {
-                        JSONObject jsonObject=new JSONObject(json);
-                        int total=jsonObject.getInt("total");
-                        JSONArray jsonArray=jsonObject.getJSONArray("rows");
-                        for (int i=0;i<total;i++){
+                        JSONObject jsonObject = new JSONObject(json);
+                        int total = jsonObject.getInt("total");
+                        JSONArray jsonArray = jsonObject.getJSONArray("rows");
+                        for (int i = 0; i < total; i++) {
                             msgList.add(jsonArray.getJSONObject(i).getString("content"));
                         }
                     } catch (JSONException e) {
@@ -409,14 +420,14 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         }
     };
 
-    private Runnable get_quick_msg=new Runnable() {
+    private Runnable get_quick_msg = new Runnable() {
         @Override
         public void run() {
-            String jsonStr=HttpPost.get_quick_reply_msg();
-            if (jsonStr!=null){
-                Message msg=new Message();
-                msg.obj=jsonStr;
-                msg.what=5;
+            String jsonStr = HttpPost.get_quick_reply_msg();
+            if (jsonStr != null) {
+                Message msg = new Message();
+                msg.obj = jsonStr;
+                msg.what = 5;
                 handler.sendMessage(msg);
             }
         }
@@ -426,36 +437,38 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         String content;
         int firstResult;
         int maxResult;
-        search_knowledge(String content,int first,int max){
-            this.content=content;
-            this.firstResult=first;
-            this.maxResult=max;
+
+        search_knowledge(String content, int first, int max) {
+            this.content = content;
+            this.firstResult = first;
+            this.maxResult = max;
         }
+
         @Override
         public void run() {
-            String jsonStr=HttpPost.search_knowledge_base(content,firstResult,maxResult);
-            if (jsonStr!=null){
+            String jsonStr = HttpPost.search_knowledge_base(content, firstResult, maxResult);
+            if (jsonStr != null) {
                 try {
-                    JSONObject jsonObject=new JSONObject(jsonStr);
-                    int total=jsonObject.getInt("total");
-                    if (total!=0){
-                        Message msg=new Message();
-                        Bundle data=new Bundle();
-                        data.putString("jsonStr",jsonObject.getString("rows"));
-                        msg.setData(data);
-                        msg.what=3;
-                        handler.sendMessage(msg);
-                    }else {
+                    JSONObject jsonObject = new JSONObject(jsonStr);
+                    int total = jsonObject.getInt("total");
+                    if (total != 0) {
                         Message msg = new Message();
-                        msg.what=4;
+                        Bundle data = new Bundle();
+                        data.putString("jsonStr", jsonObject.getString("rows"));
+                        msg.setData(data);
+                        msg.what = 3;
+                        handler.sendMessage(msg);
+                    } else {
+                        Message msg = new Message();
+                        msg.what = 4;
                         handler.sendMessage(msg);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-            }else{
+            } else {
                 Message msg = new Message();
-                msg.what=4;
+                msg.what = 4;
                 handler.sendMessage(msg);
             }
         }
@@ -496,16 +509,16 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         voice_button.setOnClickListener(this);
         work_button.setVisibility(View.VISIBLE);
         BtnSend.setOnClickListener(this);
-        order_edit=emotionMainFragment.getView(0);
+        order_edit = emotionMainFragment.getView(0);
         order_edit.setOnClickListener(this);
-        ad=emotionMainFragment.getView(1);
+        ad = emotionMainFragment.getView(1);
         ad.setOnClickListener(this);
-        quick_reply=emotionMainFragment.getView(2);
+        quick_reply = emotionMainFragment.getView(2);
         quick_reply.setOnClickListener(this);
-        quick_reply_list=emotionMainFragment.getList();
-        msgList=new ArrayList<>();
+        quick_reply_list = emotionMainFragment.getList();
+        msgList = new ArrayList<>();
         new Thread(get_quick_msg).start();
-        QuickReplyAdapter adapter=new QuickReplyAdapter(this,msgList);
+        QuickReplyAdapter adapter = new QuickReplyAdapter(this, msgList);
         quick_reply_list.setAdapter(adapter);
         quick_reply_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -621,7 +634,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 .setSmallIcon(R.drawable.login_logo2)
                 .setLargeIcon(bitmap)
                 .setWhen(System.currentTimeMillis())
-                .setTicker(name+"："+content)
+                .setTicker(name + "：" + content)
                 .setContentTitle(name)
                 .setContentText(content)
                 .setContentIntent(mainPendingIntent);
@@ -692,11 +705,60 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         // 设置标点符号,设置为"0"返回结果无标点,设置为"1"返回结果有标点
         mIat.setParameter(SpeechConstant.ASR_PTT, "0");
 
-        // 设置音频保存路径，保存音频格式支持pcm、wav，设置路径为sd卡请注意WRITE_EXTERNAL_STORAGE权限
-        // 注：AUDIO_FORMAT参数语记需要更新版本才能生效
-        mIat.setParameter(SpeechConstant.AUDIO_FORMAT, "wav");
-        mIat.setParameter(SpeechConstant.ASR_AUDIO_PATH, Environment.getExternalStorageDirectory() + "/msc/iat.wav");
+
     }
+    private void setVoiceParam(){
+        // 清空参数
+        mTts.setParameter(SpeechConstant.PARAMS, null);
+        // 根据合成引擎设置相应参数
+
+        mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_CLOUD);
+        // 设置在线合成发音人
+        mTts.setParameter(SpeechConstant.VOICE_NAME, "xiaoyan");
+        //设置合成语速
+        mTts.setParameter(SpeechConstant.SPEED, "50");
+        //设置合成音调
+        mTts.setParameter(SpeechConstant.PITCH, "50");
+        //设置合成音量
+        mTts.setParameter(SpeechConstant.VOLUME, "50");
+
+        //设置播放器音频流类型
+        mTts.setParameter(SpeechConstant.STREAM_TYPE, "3");
+        // 设置播放合成音频打断音乐播放，默认为true
+        mTts.setParameter(SpeechConstant.KEY_REQUEST_FOCUS, "true");
+    }
+
+    private SynthesizerListener mTtsListener = new SynthesizerListener() {
+
+        @Override
+        public void onSpeakBegin() {
+
+        }
+
+        @Override
+        public void onSpeakPaused() {
+        }
+
+        @Override
+        public void onSpeakResumed() {
+        }
+
+        @Override
+        public void onBufferProgress(int percent, int beginPos, int endPos, String info) {
+        }
+
+        @Override
+        public void onSpeakProgress(int percent, int beginPos, int endPos) {
+        }
+
+        @Override
+        public void onCompleted(SpeechError error) {
+        }
+
+        @Override
+        public void onEvent(int eventType, int arg1, int arg2, Bundle obj) {
+        }
+    };
     private void showPopWindows(View v, final int position) {
         View mPopView = LayoutInflater.from(this).inflate(R.layout.popup, null);
         final PopupWindow mPopWindow = new PopupWindow(mPopView,
@@ -715,7 +777,7 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
         mPopView.findViewById(R.id.popup_search).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Thread(new search_knowledge(mData.get(position).getContent(),0,1)).start();
+                new Thread(new search_knowledge(mData.get(position).getContent(), 0, 1)).start();
                 mPopWindow.dismiss();
             }
         });

@@ -96,6 +96,12 @@ public class ChatAdapter extends RecyclerView.Adapter implements View.OnClickLis
                         return false;
                     }
                 });
+                ((FromViewHolder)holder).Content_from.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mOnItemClickListener.onVoiceClick(((FromViewHolder)holder).Content_from,position);
+                    }
+                });
             }
         } else if (holder instanceof ToViewHolder) {
             if (position==0)
@@ -117,6 +123,12 @@ public class ChatAdapter extends RecyclerView.Adapter implements View.OnClickLis
                     public boolean onLongClick(View view) {
                         mOnItemClickListener.onTextClick(((ToViewHolder)holder).Content_to,position);
                         return false;
+                    }
+                });
+                ((ToViewHolder)holder).Content_to.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mOnItemClickListener.onVoiceClick(((ToViewHolder)holder).Content_to,position);
                     }
                 });
             }
@@ -170,6 +182,7 @@ public class ChatAdapter extends RecyclerView.Adapter implements View.OnClickLis
     public interface OnItemClickListener {
         void onItemClick(View view , int position);
         void onTextClick(View view,int position);
+        void onVoiceClick(View view,int position);
     }
 
 

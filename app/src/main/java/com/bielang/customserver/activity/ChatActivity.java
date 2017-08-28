@@ -214,7 +214,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onVoiceClick(View view, int position) {
                 String text = mData.get(position).getContent();
-                // 设置参数
                 setVoiceParam();
                 mTts.startSpeaking(text, mTtsListener);
             }
@@ -653,8 +652,6 @@ public class ChatActivity extends AppCompatActivity implements View.OnClickListe
                 realm.commitTransaction();
                 mAdapter.notifyItemChanged(mData.size() - 1);
                 mListView.smoothScrollToPosition(mData.size() - 1);
-                break;
-            case 401:
                 break;
             default:
                 break;

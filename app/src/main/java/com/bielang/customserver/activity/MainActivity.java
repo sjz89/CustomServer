@@ -259,7 +259,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             navigation.setSelectedItemId(R.id.navigation_service);
         }
 
-
 //        new Thread(getLeaveMsg).start();
         if (DateUtil.getDay() - DateUtil.getDay(new Date(SharePreferencesUtil.getValue(this, "update_hot_words_time", 0))) != 0)
             new Thread(update_hot_words).start();
